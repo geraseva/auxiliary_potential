@@ -1,0 +1,9 @@
+[submodule "masif_martini"]
+	path = masif_martini
+	url = https://github.com/geraseva/masif_martini
+[submodule "RFdiffusion"]
+	path = RFdiffusion
+	url = https://github.com/geraseva/RFdiffusion
+[submodule "LigandMPNN"]
+	path = LigandMPNN
+	url = https://github.com/dauparas/LigandMPNN
