@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo ${PYTHONPATH}
+RFDIFFUSION_PATH=../RFdiffusion/scripts
 
 declare -A pdb_dict
 pdb_dict[pd_l1]="inference.input_pdb=input_pdbs/5O45.pdb ppi.hotspot_res=[A56,A115,A123]"
@@ -23,12 +23,12 @@ pot_dict[dmasif_potential]='potentials.guiding_potentials=["type:dmasif_interact
 pot_dict[nc_dmasif_potential]='potentials.guiding_potentials=["type:dmasif_interactions,non_int_weight:0.5,int_weight:0.5","type:interface_ncontacts,weight:0.5"]'
 
 
-for pdb in pd_l1 il_7ra insr trka ih;
+for pdb in pd_l1 il_7ra insr trka ih; # pd_l1 il_7ra insr trka ih
 do
-  for pot in no_potential nc_potential dmasif_potential nc_dmasif_potential;
+  for pot in no_potential nc_potential dmasif_potential nc_dmasif_potential; #no_potential nc_potential dmasif_potential nc_dmasif_potentialconda 
   do
     echo $pdb $pot
-    ../RFdiffusion/scripts/run_inference.py inference.num_designs=200 inference.output_prefix=rfdiffusion_outputs/$pot/$pdb \
+    $RFDIFFUSION_PATH/run_inference.py inference.num_designs=200 inference.output_prefix=rfdiffusion_outputs/$pot/$pdb \
       ${pot_dict[$pot]} ${pdb_dict[$pdb]} "${contig_dict[$pdb]}"
   done
 done
