@@ -3,11 +3,11 @@
 RFDIFFUSION_PATH=../RFdiffusion/scripts
 
 declare -A pdb_dict
-pdb_dict[pd_l1]="inference.input_pdb=input_pdbs/5O45.pdb ppi.hotspot_res=[A56,A115,A123]"
-pdb_dict[il_7ra]="inference.input_pdb=input_pdbs/3DI3.pdb ppi.hotspot_res=[B58,B80,B139]"
-pdb_dict[insr]="inference.input_pdb=input_pdbs/4ZXB.pdb ppi.hotspot_res=[E58,E88,E96]"
-pdb_dict[trka]="inference.input_pdb=input_pdbs/1WWW.pdb ppi.hotspot_res=[X294,X296,X333]"
-pdb_dict[ih]="inference.input_pdb=input_pdbs/5VLI.pdb ppi.hotspot_res=[B521,B545,B552]"
+pdb_dict[pd_l1]="inference.input_pdb=input_pdbs/5O45.pdb"
+pdb_dict[il_7ra]="inference.input_pdb=input_pdbs/3DI3.pdb"
+pdb_dict[insr]="inference.input_pdb=input_pdbs/4ZXB.pdb"
+pdb_dict[trka]="inference.input_pdb=input_pdbs/1WWW.pdb"
+pdb_dict[ih]="inference.input_pdb=input_pdbs/5VLI.pdb"
 
 declare -A contig_dict
 contig_dict[pd_l1]='contigmap.contigs=[A17-145/0 70-100]'
@@ -25,7 +25,7 @@ pot_dict[nc_dmasif_potential]='potentials.guiding_potentials=["type:dmasif_inter
 
 for pdb in pd_l1 il_7ra insr trka ih; # pd_l1 il_7ra insr trka ih
 do
-  for pot in no_potential nc_potential dmasif_potential nc_dmasif_potential; #no_potential nc_potential dmasif_potential nc_dmasif_potentialconda 
+  for pot in no_potential nc_potential dmasif_potential nc_dmasif_potential; #no_potential nc_potential dmasif_potential nc_dmasif_potential
   do
     echo $pdb $pot
     $RFDIFFUSION_PATH/run_inference.py inference.num_designs=200 inference.output_prefix=rfdiffusion_outputs/$pot/$pdb \

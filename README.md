@@ -51,7 +51,7 @@ cd potential_validation
 conda activate SE3env
 ../RFdiffusion/scripts/run_inference.py inference.num_designs=50 \
   inference.output_prefix=rfdiffusion_outputs/example \
-  inference.input_pdb=input_pdbs/4ZXB.pdb ppi.hotspot_res=[E58,E88,E96] \
+  inference.input_pdb=input_pdbs/4ZXB.pdb ~~ppi.hotspot_res=[E58,E88,E96]~~ \
   'contigmap.contigs=[E1-150/0 70-100]' \
   'potentials.guiding_potentials=["type:dmasif_interactions,non_int_weight:0.5,int_weight:0.5"]'
 ```
