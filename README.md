@@ -36,19 +36,19 @@ python setup.py install
 cd ../.. # change into the root directory of the repository
 pip install -e . # install the rfdiffusion module from the root of the repository
 
-cd ../LigandMPNN # install LigandMPNN requirements
+cd ../../LigandMPNN # install LigandMPNN requirements
 pip install -r requirements.txt
 ```
 ## Tests
 
-Test scripts are located in ```potential_validation``` folder
+Test scripts are located in ```potential_evaluation``` folder
 
 ## For collaborators
 
 I have some random errors when running my auxiliary potential like this:
 ```
-cd potential_validation
-conda activate SE3env
+cd potential_evaluation
+conda activate SE3nv
 ../RFdiffusion/scripts/run_inference.py inference.num_designs=50 \
   inference.output_prefix=rfdiffusion_outputs/example \
   inference.input_pdb=input_pdbs/4ZXB.pdb \
