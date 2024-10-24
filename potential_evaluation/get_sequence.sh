@@ -35,9 +35,8 @@ do
   python3 run.py \
     --pdb_path_multi ${pdb_ids} \
     --out_folder $WD/ligandmpnn_output/$pot \
-    --model_type "ligand_mpnn" \
+    --model_type "protein_mpnn" \
     --batch_size 5 --pack_side_chains 0 \
-     --pack_with_ligand_context 1 \
     --redesigned_residues_multi ${redesigned_residues}
 
 done
