@@ -7,3 +7,6 @@
 [submodule "LigandMPNN"]
 	path = LigandMPNN
 	url = https://github.com/dauparas/LigandMPNN
+[submodule "protein_generator"]
+	path = protein_generator
+	url = https://github.com/geraseva/protein_generator
