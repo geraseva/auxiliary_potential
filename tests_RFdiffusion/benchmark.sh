@@ -30,10 +30,9 @@ hotspot_dict[ih]='ppi.hotspot_res=[B521,B545,B552]'
 #
 # Очевидно, что если просто сделать non_int_weight и int_weight неизмеримо малым, то буллшита не будет
 # но тогда не будет и влияния потенциала. надо как-то сбалансировать.
-parameters='potentials.guiding_potentials=["type:dmasif_interactions,non_int_weight:50,int_weight:50"] potentials.guide_scale=2 potentials.guide_decay="quadratic"'
+parameters='potentials.guiding_potentials=["type:dmasif_interactions,non_int_weight:10,int_weight:1"]'
 
-
-rm rfdiffusion_outputs/bullshit/*
+rm -rf rfdiffusion_outputs/bullshit/*
 
 # тут через цикл запускается генерация байндеров к 5 разным белкам
 # можно попробовать распараллелить на несколько гпу, если они есть
@@ -42,16 +41,19 @@ rm rfdiffusion_outputs/bullshit/*
 # при перезапуске кода уже рассчитанные файлы структур не пересчитываются
 
 
-for pdb in pd_l1 il_7ra insr trka ih; # pd_l1 il_7ra insr trka ih
+for pdb in pd_l1 il_7ra insr trka ih ; # pd_l1 il_7ra insr trka ih
 do
-  CUDA_VISIBLE_DEVICES=0 $RFDIFFUSION_PATH/run_inference.py inference.num_designs=200 inference.output_prefix=rfdiffusion_outputs/bullshit/$pdb \
+  CUDA_VISIBLE_DEVICES=0 $RFDIFFUSION_PATH/run_inference.py inference.num_designs=20 inference.output_prefix=rfdiffusion_outputs/bullshit/$pdb \
     ${pdb_dict[$pdb]} ${hotspot_dict[$pdb]} "${contig_dict[$pdb]}" ${parameters}
-    ${parameters}
-done
-
+done #&
+#for pdb in insr trka ih; # pd_l1 il_7ra insr trka ih
+#do
+#  CUDA_VISIBLE_DEVICES=1 $RFDIFFUSION_PATH/run_inference.py inference.num_designs=20 inference.output_prefix=rfdiffusion_outputs/bullshit/$pdb \
+#    ${pdb_dict[$pdb]} ${hotspot_dict[$pdb]} "${contig_dict[$pdb]}" ${parameters}
+#done
 
 # тут результаты генерации проверяются на буллшитность
-result=$(python3 bullshit.py -pdbdir rfdiffusion_outputs/bullshit)
+result=$(python3 bullshit.py --pdbdir rfdiffusion_outputs/bullshit)
 echo ${parameters} >> logs/finetune.log
 echo $result >> logs/finetune.log
 echo $result

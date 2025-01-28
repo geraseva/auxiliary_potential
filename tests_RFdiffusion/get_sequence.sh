@@ -39,4 +39,11 @@ do
     --batch_size 5 --pack_side_chains 0 \
     --redesigned_residues_multi ${redesigned_residues}
 
+   #write ligandmpnn outputs to a single file
+  for pdb in `ls ligandmpnn_output/${pot}/seqs | grep fa` ;
+  do
+    echo $pdb
+    cat ligandmpnn_output/${pot}/seqs/${pdb} | awk '{print $1, $2}' | grep id= -A 1 | sed 's/,\ id=/_/' | sed 's/,//' >> ligandmpnn_output/${pot}/all_seqs.fasta   
+  done
 done
+

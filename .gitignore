@@ -2,14 +2,9 @@ RFdiffusion
 masif_martini
 LigandMPNN
 protein_generator
-potential_evaluation/.ipynb_checkpoints
-potential_evaluation/af_predictions/*
-potential_evaluation/dssp_statistics/*
-potential_evaluation/logs/*
-potential_evaluation/rfdiffusion_outputs/*
-potential_evaluation/ligandmpnn_output/*
-potential_evaluation/proteinmpnn_outputs/*
-potential_evaluation/outputs/*
+tests_RFdiffusion/.*
+tests_RFdiffusion/logs/*
+tests_RFdiffusion/outputs/*
 
 
 
