@@ -5,7 +5,9 @@ protein_generator
 tests_RFdiffusion/.*
 tests_RFdiffusion/logs/*
 tests_RFdiffusion/outputs/*
-
+tests_proteingenerator/.*
+tests_proteingenerator/logs/*
+tests_proteingenerator/outputs/*
 
 
 

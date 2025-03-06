@@ -7,9 +7,40 @@ This is a repo containing tests of a complex DL auxiliary potential for RFdiffus
 ```
 git clone https://github.com/geraseva/auxiliary_potential
 cd auxiliary_potential
-
-# clone submodules, or simply make a symlink if you already have some of them
 git clone https://github.com/geraseva/masif_martini
+```
+## Protein generator implementation
+
+```
+git clone https://github.com/geraseva/protein_generator
+cd protein_generator
+
+# get protein_generator weights
+wget http://files.ipd.uw.edu/pub/sequence_diffusion/checkpoints/SEQDIFF_230205_dssp_hotspots_25mask_EQtasks_mod30.pt -P model 
+wget http://files.ipd.uw.edu/pub/sequence_diffusion/checkpoints/SEQDIFF_221219_equalTASKS_nostrSELFCOND_mod30.pt -P model'
+```
+
+Create conda environment for running protein_generator with auxiliary potentials
+```
+conda env create -f environment.yml
+conda activate proteingenerator
+pip install pykeops
+```
+Usage examples are in ```tests_proteingenerator/```
+
+## For collaborators
+
+Run the following to test:
+```
+mkdir tests_proteingenerator/outputs/
+python protein_generator/inference.py --out outputs \
+    --pdb input_pdbs/5O45.pdb --contigs A17-145 70-100 --T 25 --save_best_plddt \
+    --num_designs 1 --start_num 0 --potentials dmasif_interactions --potential_scale 10.0
+```
+
+## RFDiffusion implementation
+```
+# clone submodules, or simply make a symlink if you already have some of them
 git clone https://github.com/geraseva/RFdiffusion
 git clone https://github.com/dauparas/LigandMPNN
 
@@ -21,9 +52,11 @@ wget http://files.ipd.uw.edu/pub/RFdiffusion/e29311f6f1bf1af907f9ef9f44b8328b/Co
 wget http://files.ipd.uw.edu/pub/RFdiffusion/60f09a193fb5e5ccdc4980417708dbab/Complex_Fold_base_ckpt.pt
 
 # get LigandMPNN weights
+
 cd ../LigandMPNN
 bash get_model_params.sh "./model_params"
 ```
+
 Create conda environment for running RFdiffusion with auxiliary potentials
 ```
 cd ../RFdiffusion
@@ -39,22 +72,5 @@ pip install -e . # install the rfdiffusion module from the root of the repositor
 cd ../../LigandMPNN # install LigandMPNN requirements
 pip install -r requirements.txt
 ```
-## Tests
-
-Test scripts are located in ```potential_evaluation``` folder
-
-## For collaborators
-
-I have some random errors when running my auxiliary potential like this:
-```
-cd potential_evaluation
-conda activate SE3nv
-../RFdiffusion/scripts/run_inference.py inference.num_designs=50 \
-  inference.output_prefix=rfdiffusion_outputs/example \
-  inference.input_pdb=input_pdbs/4ZXB.pdb \
-  'contigmap.contigs=[E1-150/0 70-100]' \
-  'potentials.guiding_potentials=["type:dmasif_interactions,non_int_weight:0.5,int_weight:0.5"]'
-```
-About after an hour of computation it randomly raises an error like this: 
-![error1](img/error1.jpg)
+Usage examples are in ```tests_RFdiffusion/```
 
